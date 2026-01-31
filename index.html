@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROMAC – Projetos Mecânicos</title>
+
+ <style>
+ 
+ /* ================= UX / UI MELHORIAS ================= */
+
+/* Limita largura de textos longos */
+section p{
+  max-width:900px;
+  font-size:1.05rem;
+}
+
+/* Destaque visual para seções */
+section:nth-child(even){
+  background:#f9fafb;
+  border-radius:20px;
+}
+
+/* Espaçamento maior entre blocos */
+section{
+  margin-bottom:60px;
+}
+
+/* Cards com efeito sutil de interação */
+.card{
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 15px 30px rgba(0,0,0,.08);
+}
+
+/* Títulos dos cards mais claros */
+.card h4{
+  font-size:1.25rem;
+  margin-bottom:8px;
+}
+
+/* Botões com efeito visual */
+button, .btn{
+  transition:background .3s ease, transform .2s ease;
+}
+
+button:hover, .btn:hover{
+  transform:scale(1.03);
+}
+
+ 
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  /* BASE */
+  body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#ffffff;
+    color:#1f2933;
+    line-height:1.6
+  }
+
+  a{text-decoration:none;color:inherit}
+
+  /* HEADER */
+  header{
+    background:#ffffff;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:10;
+    border-bottom:1px solid #e5e7eb
+  }
+
+  header h1{
+    color:#0f172a;
+    font-size:1.8rem
+  }
+
+  nav a{
+    margin-left:20px;
+    font-weight:bold;
+    color:#334155
+  }
+
+  nav a:hover{
+    color:#0ea5e9
+  }
+
+  /* HERO */
+  .hero{
+    padding:100px 20px;
+    text-align:center;
+    background:#f8fafc
+  }
+
+  .hero h2{
+    font-size:2.6rem;
+    color:#0f172a;
+    margin-bottom:20px
+  }
+
+  .hero p{
+    max-width:700px;
+    margin:auto;
+    font-size:1.2rem;
+    color:#475569
+  }
+
+  .btn{
+    display:inline-block;
+    margin-top:30px;
+    background:#0ea5e9;
+    color:#ffffff;
+    padding:15px 35px;
+    border-radius:30px;
+    font-weight:bold
+  }
+
+  .btn:hover{
+    background:#0284c7
+  }
+
+  /* SECTIONS */
+  section{
+    padding:80px 20px;
+    max-width:1200px;
+    margin:auto
+  }
+
+  h3{
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:40px;
+    border-left:6px solid #0ea5e9;
+    padding-left:15px
+  }
+
+  p{
+    color:#475569
+  }
+
+  /* GRID / CARDS */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px
+  }
+
+  .card{
+    background:#ffffff;
+    padding:25px;
+    border-radius:14px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 8px 20px rgba(0,0,0,.06)
+  }
+
+  .card h4{
+    margin-top:10px;
+    color:#0f172a
+  }
+
+  /* FILTER */
+  .filter-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:40px
+  }
+
+  .filter-buttons button{
+    padding:10px 22px;
+    border:1px solid #cbd5e1;
+    border-radius:20px;
+    background:#ffffff;
+    color:#334155;
+    font-weight:bold;
+    cursor:pointer
+  }
+
+  .filter-buttons button.active,
+  .filter-buttons button:hover{
+    background:#0ea5e9;
+    color:#ffffff;
+    border-color:#0ea5e9
+  }
+
+  /* SLIDER */
+  .slider{
+    position:relative;
+    overflow:hidden;
+    border-radius:10px
+  }
+
+  .slider-track{
+    display:flex;
+    transition:transform .4s ease
+  }
+
+  .slider img{
+    min-width:100%;
+    height:220px;
+    object-fit:cover;
+    cursor:pointer
+  }
+
+  .slider-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,.6);
+    color:#ffffff;
+    border:none;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer
+  }
+
+  .slider-btn.prev{left:10px}
+  .slider-btn.next{right:10px}
+
+  /* MODAL */
+  .modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    z-index:9999;
+    justify-content:center;
+    align-items:center
+  }
+
+  .modal img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:12px
+  }
+
+  /* FORM */
+  form{
+    background:#f8fafc;
+    padding:40px;
+    border-radius:16px;
+    max-width:600px;
+    margin:auto;
+    border:1px solid #e5e7eb
+  }
+
+  form input,
+  form textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #cbd5e1;
+    border-radius:6px
+  }
+
+  form button{
+    width:100%;
+    padding:14px;
+    background:#0ea5e9;
+    border:none;
+    border-radius:25px;
+    font-weight:bold;
+    color:#ffffff
+  }
+
+  form button:hover{
+    background:#0284c7
+  }
+
+  /* FOOTER */
+  footer{
+    background:#f8fafc;
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid #e5e7eb;
+    color:#475569
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    header{flex-direction:column}
+    nav{margin-top:10px}
+    .hero h2{font-size:2rem}
+    .slider img{height:180px}
+  }
+  
+  /* WHATSAPP FLOAT */
+.whatsapp-float{
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:25px;
+  right:25px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  z-index:999;
+  transition:transform .3s ease;
+}
+
+.whatsapp-float img{
+  width:32px;
+  filter:invert(1);
+}
+
+.whatsapp-float:hover{
+  transform:scale(1.1);
+}
+
+/* ================= CTA CONVERSÃO ================= */
+
+.cta-section{
+  text-align:center;
+  padding:80px 20px;
+  background:#0f172a;
+  color:#ffffff;
+  border-radius:20px;
+}
+
+.cta-section h3{
+  color:#ffffff;
+  border:none;
+  margin-bottom:20px;
+}
+
+.cta-section p{
+  color:#cbd5e1;
+  margin-bottom:30px;
+}
+
+.cta-final{
+  text-align:center;
+  padding:100px 20px;
+  background:linear-gradient(135deg,#0ea5e9,#0284c7);
+  color:#ffffff;
+  border-radius:30px;
+  margin:80px auto;
+  max-width:1200px;
+}
+
+.cta-final h2{
+  font-size:2.4rem;
+  margin-bottom:20px;
+}
+
+.cta-final p{
+  font-size:1.1rem;
+  margin-bottom:35px;
+  color:#e0f2fe;
+}
+
+.cta-btn{
+  font-size:1.1rem;
+  padding:16px 40px;
+}
+
+/* ================= ANIMAÇÕES SCROLL ================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>PROMAC</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h2>Projetos Mecânicos Industriais</h2>
+  <p>Especialistas em projetos mecânicos CAD 2D e 3D para indústria.</p>
+  <a class="btn" href="#contato">Solicitar Orçamento</a>
+</section>
+
+<section>
+  <h3>Sobre a PROMAC</h3>
+  <p>A <strong>PROMAC – Projetos Mecânicos</strong> atua no desenvolvimento de soluções técnicas em CAD para aplicações industriais, com foco em robustez, precisão e documentação conforme normas técnicas. Atendimento 100% online para todo o Brasil.</p>
+</section>
+
+<section>
+  <h3>Serviços</h3>
+  <div class="grid">
+    <div class="card"><h4>Modelagem 3D</h4><p>Conjuntos, peças e máquinas industriais completas.</p></div>
+    <div class="card"><h4>Desenhos 2D</h4><p>Detalhamento técnico pronto para fabricação.</p></div>
+    <div class="card"><h4>Revisão de Projetos</h4><p>Otimização e adequação de projetos existentes.</p></div>
+    <div class="card"><h4>BOM & Documentação</h4><p>Listas de materiais e padronização técnica.</p></div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h3>Portfólio – Projetos Exemplos</h3>
+
+  <div class="filter-buttons">
+    <button class="active" onclick="filterProjects('all',this)">Todos</button>
+    <button onclick="filterProjects('industrial',this)">Industrial</button>
+    <button onclick="filterProjects('estrutura',this)">Estruturas</button>
+    <button onclick="filterProjects('dispositivo',this)">Dispositivos</button>
+  </div>
+
+  <div class="grid">
+    <div class="card project industrial">
+      <div class="slider">
+        <div class="slider-track">
+          <img src="um.png" loading="lazy" onclick="openModal(this)">
+          <img src="dois.png" loading="lazy" onclick="openModal(this)">
+          <img src="tres.png" loading="lazy" onclick="openModal(this)">
+		  <img src="quatro.png" loading="lazy" onclick="openModal(this)">
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this,-1)">‹</button>
+        <button class="slider-btn next" onclick="moveSlide(this,1)">›</button>
+      </div>
+      <h4>Redutor Industrial</h4>
+      <p>Projeto completo em 3D com detalhamento técnico.</p>
+    </div>
+
+    <div class="card project estrutura">
+      <div class="slider">
+        <div class="slider-track">
+          <img src="Eum.png" loading="lazy" onclick="openModal(this)">
+          <img src="Edois.png" loading="lazy" onclick="openModal(this)">
+		  <img src="Etres.png" loading="lazy" onclick="openModal(this)">
+		  <img src="Equatro.png" loading="lazy" onclick="openModal(this)">
+		  <img src="Ecinco.png" loading="lazy" onclick="openModal(this)">
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(this,-1)">‹</button>
+        <button class="slider-btn next" onclick="moveSlide(this,1)">›</button>
+      </div>
+      <h4>Estrutura Metálica</h4>
+      <p>Estruturas industriais e plataformas.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <h3>Solicite um Orçamento</h3>
+  <form>
+    <input type="text" placeholder="Nome" required>
+    <input type="email" placeholder="E-mail" required>
+    <textarea rows="5" placeholder="Mensagem" required></textarea>
+    <button>Enviar</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 PROMAC – Projetos Mecânicos</p>
+</footer>
+
+<div class="modal" id="modal" onclick="closeModal()">
+  <img id="modalImg">
+</div>
+
+<a href="https://wa.me/5549999078440" 
+   class="whatsapp-float" 
+   target="_blank"
+   aria-label="WhatsApp">
+   <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+</a>
+
+<script>
+function moveSlide(btn,dir){
+  const track = btn.parentElement.querySelector('.slider-track');
+  const slides = track.children.length;
+  let index = track.dataset.index ? Number(track.dataset.index) : 0;
+  index = (index + dir + slides) % slides;
+  track.dataset.index = index;
+  track.style.transform = `translateX(-${index*100}%)`;
+}
+
+function openModal(img){
+  modal.style.display='flex';
+  modalImg.src = img.src;
+}
+function closeModal(){modal.style.display='none';}
+
+function filterProjects(cat,btn){
+  document.querySelectorAll('.filter-buttons button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project').forEach(p=>{
+    p.style.display = (cat==='all'||p.classList.contains(cat))?'block':'none';
+  });
+}
+
+const reveals = document.querySelectorAll('.reveal');
+
+function revealOnScroll(){
+  const windowHeight = window.innerHeight;
+  reveals.forEach(el=>{
+    const elementTop = el.getBoundingClientRect().top;
+    if(elementTop < windowHeight - 100){
+      el.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+</script>
+
+</script>
+
+</body>
+</html>
