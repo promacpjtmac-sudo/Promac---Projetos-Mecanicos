@@ -392,7 +392,23 @@ header h1{
   width:auto;
 }
 
-	 
+.service-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.service-title img{
+  width:22px;
+  height:22px;
+  filter:invert(36%) sepia(94%) saturate(746%) hue-rotate(170deg);
+}
+
+.card:hover .service-title img{
+  transform:rotate(-8deg);
+  transition:.3s;
+}
+ 
 </style>
 
 </head>
@@ -426,10 +442,37 @@ header h1{
 <section>
   <h3>Serviços</h3>
   <div class="grid">
-    <div class="card"><h4>Modelagem 3D</h4><p>Conjuntos, peças e máquinas industriais completas.</p></div>
-    <div class="card"><h4>Desenhos 2D</h4><p>Detalhamento técnico pronto para fabricação.</p></div>
-    <div class="card"><h4>Revisão de Projetos</h4><p>Otimização e adequação de projetos existentes.</p></div>
-    <div class="card"><h4>BOM & Documentação</h4><p>Listas de materiais e padronização técnica.</p></div>
+    <<div class="card">
+  <h4 class="service-title">
+    <img src="cubo.svg" alt="">
+    Modelagem 3D
+  </h4>
+  <p>Conjuntos, peças e máquinas industriais completas.</p>
+</div>
+
+<div class="card">
+  <h4 class="service-title">
+    <img src="cad.svg" alt="">
+    Desenhos 2D
+  </h4>
+  <p>Detalhamento técnico pronto para fabricação.</p>
+</div>
+
+<div class="card">
+  <h4 class="service-title">
+    <img src="proj.svg" alt="">
+    Revisão de Projetos
+  </h4>
+  <p>Otimização e adequação de projetos existentes.</p>
+</div>
+
+<div class="card">
+  <h4 class="service-title">
+    <img src="bom.svg" alt="">
+    BOM & Documentação
+  </h4>
+  <p>Listas de materiais e padronização técnica.</p>
+</div>
   </div>
 </section>
 
